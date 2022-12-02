@@ -13,7 +13,7 @@ const scoreRound = round => {
         (round[0] === 'B' && round[1] === 'Z') ||
         (round[0] === 'C' && round[1] === 'X')
     ) {
-        return 6;
+        return (6 + shapeValues[round[1]]);
     }
 
     if (
@@ -21,7 +21,7 @@ const scoreRound = round => {
         (round[0] === 'B' && round[1] === 'Y') ||
         (round[0] === 'C' && round[1] === 'Z')
     ) {
-        return 3;
+        return (3 + shapeValues[round[1]]);
     }
 
     if (
@@ -29,18 +29,15 @@ const scoreRound = round => {
         (round[0] === 'B' && round[1] === 'X') ||
         (round[0] === 'C' && round[1] === 'Y')
     ) {
-        return 0;
+        return shapeValues[round[1]];
     }
 };
-
-let score = 0;
 
 const rows = data.split('\n');
 const rounds = rows.map(row => row.split(' '));
 
-rounds.forEach(round => {
-    score += shapeValues[round[1]];
-    score += scoreRound(round);
-});
+const score = rounds.reduce((prev, curr) => {
+    return prev += scoreRound(curr);
+}, 0);
 
-console.log(rows, score);
+console.log(score, reducescore);
