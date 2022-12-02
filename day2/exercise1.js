@@ -40,4 +40,4 @@ const score = rounds.reduce((prev, curr) => {
     return prev += scoreRound(curr);
 }, 0);
 
-console.log(score, reducescore);
+console.log(score);
