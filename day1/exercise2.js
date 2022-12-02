@@ -35,4 +35,4 @@ for (let i = 0; i < 3; i++) {
     calorieGroups.splice(highIndex, 1);
 }
 
-console.log(topThree.reduce((prev, curr) => prev + curr));
+console.log(topThree.reduce((prev, curr) => prev + curr, 0));
