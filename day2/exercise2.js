@@ -15,6 +15,48 @@ const shapeValues = {
     Z: 3
 };
 
+// Set consts for equivalent pair shapes
+const pairs = {
+    A: 'X',
+    B: 'Y',
+    C: 'Z'
+};
+
+// Determine based on outcome type which shape we should play
+const determineRound = roundGuide => {
+    const round = [...roundGuide];
+
+    if (roundGuide[1] === 'Y') {
+        round[1] = pairs[round[0]];
+    }
+
+    if ((roundGuide[0] === 'A' && roundGuide[1] === 'X')) {
+        round[1] = 'Z';
+    }
+
+    if ((roundGuide[0] === 'A' && roundGuide[1] === 'Z')) {
+        round[1] = 'Y';
+    }
+
+    if ((roundGuide[0] === 'B' && roundGuide[1] === 'X')) {
+        round[1] = 'X';
+    }
+
+    if ((roundGuide[0] === 'B' && roundGuide[1] === 'Z')) {
+        round[1] = 'Z';
+    }
+
+    if ((roundGuide[0] === 'C' && roundGuide[1] === 'X')) {
+        round[1] = 'Y';
+    }
+
+    if ((roundGuide[0] === 'C' && roundGuide[1] === 'Z')) {
+        round[1] = 'X';
+    }
+
+    return round;
+};
+
 // Evaluate the score of a round based on the two shapes in the round
 const scoreRound = round => {
     if (
@@ -44,12 +86,11 @@ const scoreRound = round => {
 
 // Split data into rows
 const rounds = data.split('\n')
-    // Convert each row into a sub-array representing a 'round'
     .map(row => row.split(' '));
 
 // Score each round and total up the score
 const score = rounds.reduce((prev, curr) => {
-    return prev += scoreRound(curr);
+    return prev += scoreRound(determineRound(curr));
 }, 0);
 
 console.log(score);
