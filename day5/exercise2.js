@@ -3,9 +3,9 @@ const data = fs.readFileSync('./data.txt', 'utf8');
 
 // Function to move elements between stacks
 const moveElements = (number, from, to, stackMap) => {
-    for (let i = 0; i < number; ++i) {
-        stackMap[(to - 1)].push(stackMap[(from - 1)].pop());
-    }
+    const tempStack = stackMap[(from - 1)];
+    const itemsToMove = tempStack.splice((number * -1), number);
+    stackMap[(to - 1)] = [...stackMap[(to - 1)], ...itemsToMove];
 };
 
 // Split the top of the data file into rows representing the data map
@@ -29,7 +29,7 @@ const stacks = stackRows[0].map((_, column) => stackRows.map(row => row[column])
 
 // Move elements according to the instructions
 instructionRows.forEach(instruction => {
-    [number, from, to] = instruction;
+    const [number, from, to] = instruction;
     moveElements(number, from, to, stacks);
 });
 
